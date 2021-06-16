@@ -3,6 +3,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
@@ -10,15 +11,14 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
 public class BMI extends JFrame implements ActionListener {
 	
 	// GUI components
-	JTextField jtfWeight;
-	JTextField jtfHeight;
-	JButton btnSubmit;
-	JButton btnClear;
-	JButton btnExit;
+	private JTextField jtfWeight;
+	private JTextField jtfHeight;
+	private JButton btnSubmit;
+	private JButton btnClear;
+	private JButton btnExit;
 	
 	// Create constructor
 	public BMI() {
@@ -66,8 +66,44 @@ public class BMI extends JFrame implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 		
+		if (e.getSource() == btnSubmit) {
+			try {
+				// Get weight and height and convert to kg and meters
+			double weight = Double.parseDouble(jtfWeight.getText()) *  0.45359237;
+			double height = Double.parseDouble(jtfHeight.getText()) * 0.0254;
+			
+			// Calculate result BMI result
+			double result = weight / Math.pow(height, 2);
+			
+			String text = "";
+			
+			if (result <= 16) {
+				text = "seriously underweight";
+			} else if (result <= 18) {
+				text = "underweight";
+			} else if (result <= 24) {
+				text = "normal weight";
+			} else if (result <= 29) {
+				text = "overweight";
+			} else if (result <= 35) {
+				text = "seriosly overweight";
+			} else {
+				text = "gravely overweight";
+			}
+			
+			JOptionPane.showMessageDialog(null, "Your Body Mass Index is " + Math.round(result) + " This is considered " + text + ".");
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(null, "Enter a number.");
+			}
+		}
+		else if (e.getSource() == btnClear) {
+			jtfWeight.setText("");
+			jtfHeight.setText("");
+		}
+		else if (e.getSource() == btnExit) {
+			System.exit(0);
+		}
 	}
-	
 	
 } // class
 

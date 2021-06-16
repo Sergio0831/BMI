@@ -6,7 +6,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		// Create an object from the class
-		BMI frame = new BMI();
+		 new BMI();
 	
 	} // main
 } // class
